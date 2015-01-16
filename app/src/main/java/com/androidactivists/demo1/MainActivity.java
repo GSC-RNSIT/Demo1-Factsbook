@@ -2,6 +2,7 @@ package com.androidactivists.demo1;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,37 +12,52 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener{
-
-
+public class MainActivity extends ActionBarActivity {
 
     private Button outputButton;
-    private TextView outputField;
-    private EditText inputField;
+    private EditText inputTextView;
+    private TextView outputTextView;
+
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_activity);
 
-        outputButton = (Button) findViewById(R.id.outputButton);
-        inputField = (EditText) findViewById(R.id.inputField);
-        outputField = (TextView) findViewById(R.id.outputField);
+                 outputButton= (Button) findViewById(R.id.outputButon);
+                 inputTextView = (EditText) findViewById(R.id.inputTextView);
+                 inputTextView.setGravity(Gravity.CENTER);
+                 outputTextView = (TextView)findViewById(R.id.outputTextView);
+                 outputTextView.setGravity(Gravity.CENTER);
 
-        outputButton.setOnClickListener(this);
+    outputButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String s = inputTextView.getText().toString();
+                if(v== outputButton){
+                    if(s.length()==0)
+                    {
+                        toastIt();
+                    }
+                    else if(s.length()!=0)
+                    {
+                        outputTextView.setText("You said "+s);
+                    }
+                }
 
-    }
-
-
-    @Override
-    public void onClick(View v) {
-
-        if(v== outputButton){
-            String input = inputField.getText().toString();
-            outputField.setText("You just said "+ input);
         }
+    });}
 
 
+
+
+
+
+    private void toastIt() {
+        Toast.makeText(this,"You haven't entered anything !!!",Toast.LENGTH_SHORT).show();
     }
 }
